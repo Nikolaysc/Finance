@@ -28,7 +28,7 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock 
-                                Text="{Binding Category}"
+                                Text="{Binding Category.Name}"
                                 Grid.Row="0" Grid.Column="0" />
                             <TextBlock 
                                 Text="{Binding Path=Date, StringFormat={}{0:f}}" 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,8 +21,15 @@ namespace FinanceCore
         {
             base.OnStartup(e);
 
+            var bg = CultureInfo.GetCultureInfo("bg-BG"); ;
+
+            CultureInfo.CurrentCulture = bg;
+            CultureInfo.CurrentUICulture = bg;
+            CultureInfo.DefaultThreadCurrentCulture = bg;
+
             using (var db = new FinDbContext())
             {
+                //db.Database.EnsureCreated();
                 db.Database.Migrate();
 
                 int id = 1;

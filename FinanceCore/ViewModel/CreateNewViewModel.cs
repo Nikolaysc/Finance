@@ -43,7 +43,13 @@ namespace FinanceCore.ViewModel
         public decimal Amount
         {
             get => amount;
-            set => Set(ref amount, value);
+            set
+            {
+                if (Set(ref amount, value))
+                {
+                    CreateCommand.RaiseCanExecuteChanged();
+                }
+            }
         }
 
         public Category[] Categories => categories;
@@ -61,6 +67,7 @@ namespace FinanceCore.ViewModel
             IsIncomeCommand = new RelayCommand<object>(OnIsIncome);
 
             this.navigation = navigation;
+            this.isExpense = true;
             db = new FinDbContext();
             categories = db.Categories
                 .OrderBy(x => x.Name)
@@ -69,12 +76,12 @@ namespace FinanceCore.ViewModel
 
         void OnIsExpense(object o)
         {
-            this.isExpense = false;
+            this.isExpense = true;
         }
 
         void OnIsIncome(object o)
         {
-            this.isExpense = true;
+            this.isExpense = false;
         }
 
         public void SelectectCategory(Category item)
