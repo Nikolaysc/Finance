@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,31 @@ namespace Finance
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly HelloViewModel vm = new HelloViewModel();
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = vm;
+        }
+
+        private void btn_Click(object sender, RoutedEventArgs e)
+        {
+            vm.OnClicked();
+        }
+    }
+
+    class HelloViewModel:INotifyPropertyChanged
+    {
+        int countClicked;
+        public string Text => $"Clickect {countClicked} times";
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnClicked()
+        {
+            countClicked++;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
         }
     }
 }
