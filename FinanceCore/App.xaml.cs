@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FinanceCore.Model;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -18,7 +20,10 @@ namespace FinanceCore
         {
             base.OnStartup(e);
 
-            Debug.WriteLine("From debug class");
+            using (var db = new FinDbContext())
+            {
+                db.Database.Migrate();
+            }
         }
     }
 }

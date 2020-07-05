@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:FinanceCore"
         mc:Ignorable="d"
         xmlns:m="clr-namespace:FinanceCore.Model"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        >
     <DockPanel LastChildFill="True">
         <Border DockPanel.Dock="Bottom">
-            <Button Content="+" ></Button>
+            <Button Content="+" Command="{Binding CreateNewCommand}"></Button>
         </Border>
         <ItemsControl ItemsSource="{Binding Events}">
             <ItemsControl.ItemTemplate>

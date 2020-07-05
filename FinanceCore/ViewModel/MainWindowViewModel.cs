@@ -17,9 +17,12 @@ namespace FinanceCore.ViewModel
         int page;
 
         public ObservableCollection<Event> Events => events;
+        public RelayCommand<object> CreateNewCommand { get; }
 
         public MainWindowViewModel()
         {
+            CreateNewCommand = new RelayCommand<object>(CreateNew);
+
             db = new FinDbContext();
             var firstPage = db.Events
                 .Include(x => x.Category)
@@ -29,6 +32,17 @@ namespace FinanceCore.ViewModel
            
             page = 0;
             events = new ObservableCollection<Event>(firstPage);
+        }
+
+        private void CreateNew(object unused)
+        {
+            Event evt = new Event()
+            {
+                Amount = 12,
+                Date = DateTime.Now,
+                Name = "asd sd",
+            };
+            events.Insert(0, evt);
         }
 
         public override void Dispose()
